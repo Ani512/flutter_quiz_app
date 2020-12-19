@@ -28,16 +28,22 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
   List<String> questions = [
-    'This is where the question text will go.',
     'You can lead a cow down stairs but not up stairs.',
     'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.'
+    'A slug\'s blood is green.',
   ];
 
+  List<bool> answers = [false, true, true];
+
+  int questionNumber = 0;
+  int nextQuestion() {
+    questionNumber++;
+    return questionNumber;
+  }
+
   String displayQuestion() {
-    for (int i = 0; i < 4; i++) {
-      return questions[i];
-    }
+    String current = questions[questionNumber];
+    return current;
   }
 
   @override
@@ -93,6 +99,13 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                bool correctAnswer = answers[questionNumber];
+                if (correctAnswer == true) {
+                  print('Right Answer ✔💯');
+                } else {
+                  print('Wrong Answer ✖🤢');
+                }
+
                 setState(() {
                   scoreKeeper.add(
                     Icon(
@@ -100,6 +113,9 @@ class _QuizPageState extends State<QuizPage> {
                       color: Colors.green,
                     ),
                   );
+                });
+                setState(() {
+                  nextQuestion();
                 });
               },
             ),
@@ -118,6 +134,13 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                bool correctAnswer = answers[questionNumber];
+                if (correctAnswer == true) {
+                  print('Wrong Answer ✖🤢');
+                } else {
+                  print('Right Answer ✔💯');
+                }
+
                 setState(() {
                   scoreKeeper.add(
                     Icon(
@@ -125,6 +148,9 @@ class _QuizPageState extends State<QuizPage> {
                       color: Colors.red,
                     ),
                   );
+                });
+                setState(() {
+                  nextQuestion();
                 });
               },
             ),
