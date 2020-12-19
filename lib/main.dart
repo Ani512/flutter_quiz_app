@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
-void main() => runApp(Quizzler());
+void main() {
+  runApp(Quizzler());
+}
 
 class Quizzler extends StatelessWidget {
   @override
@@ -27,13 +30,28 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
-  List<String> questions = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.',
+  // List<String> questions = [
+  //   'You can lead a cow down stairs but not up stairs.',
+  //   'Approximately one quarter of human bones are in the feet.',
+  //   'A slug\'s blood is green.',
+  // ];
+
+  // List<bool> answers = [false, true, true];
+
+  List<Question> quiz = [
+    Question('You can lead a cow down stairs but not up stairs.', false),
+    Question('Approximately one quarter of human bones are in the feet.', true),
+    Question('A slug\'s blood is green.', true),
   ];
 
-  List<bool> answers = [false, true, true];
+  // List temp;
+
+  // void createListClass() {
+  //   for (int x = 0; x < answers.length; x++) {
+  //     temp[x] = new Question(questions[x], answers[x]);
+  //     quiz.add(temp[x]);
+  //   }
+  // }
 
   int questionNumber = 0;
   int nextQuestion() {
@@ -42,7 +60,7 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   String displayQuestion() {
-    String current = questions[questionNumber];
+    String current = quiz[questionNumber].questionText;
     return current;
   }
 
@@ -99,7 +117,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = answers[questionNumber];
+                bool correctAnswer = quiz[questionNumber].questionAnswer;
                 if (correctAnswer == true) {
                   print('Right Answer ✔💯');
                 } else {
@@ -134,7 +152,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = answers[questionNumber];
+                bool correctAnswer = quiz[questionNumber].questionAnswer;
                 if (correctAnswer == true) {
                   print('Wrong Answer ✖🤢');
                 } else {
